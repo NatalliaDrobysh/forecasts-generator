@@ -24,6 +24,15 @@ function generatePercent (max) {
     return Math.floor(Math.random() * 100);  
 }
 
+function makeForecastByTemplate(title, probability) {
+       const forecastTemplate = document.querySelector('#forecast-item');
+       const myPredictionsTemplate = forecastTemplate.content.cloneNode(true);
+       myPredictionsTemplate.querySelector('h3').textContent = title;
+       myPredictionsTemplate.querySelector('p').textContent = probability;
+
+       return myPredictionsTemplate;
+}
+
 const button = document.querySelector('.forecast-btn');
 
 button.addEventListener('click', function() {
@@ -45,26 +54,15 @@ button.addEventListener('click', function() {
 
     }
 
-    let currentForecast = document.querySelector('h1');
+    const currentForecast = document.querySelector('h1');
     currentForecast.textContent = predictionText;
     
     const predictionPercent = generatePercent(100);
     const currentForecastContainer = document.querySelector('.current-forecast')
-    let currentForecastPercent = currentForecastContainer.querySelector('p');
+    const currentForecastPercent = currentForecastContainer.querySelector('p');
     currentForecastPercent.textContent = `Вероятность: ${predictionPercent}%`;
 
-    let forecastTemplate = document.querySelector('#forecast-item');
-
-    function makeForecastByTemplate(title, probability) {
-       let myPredictionsTemplate = forecastTemplate.content.cloneNode(true);
-
-       myPredictionsTemplate.querySelector('h3').textContent = title;
-       myPredictionsTemplate.querySelector('p').textContent = probability;
-
-       return myPredictionsTemplate;
-    }
-    
-    let myPredictions = makeForecastByTemplate(currentForecast.textContent, currentForecastPercent.textContent);
+    const myPredictions = makeForecastByTemplate(currentForecast.textContent, currentForecastPercent.textContent);
 
     const foreCasts = document.querySelector('.forecasts');
     foreCasts.prepend(myPredictions);
